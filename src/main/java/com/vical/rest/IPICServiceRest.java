@@ -18,7 +18,7 @@ public interface IPICServiceRest {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Persona obtenerDatosPersona(
 			@QueryParam("tipoDocumento") String tipoDocumento,
-			@QueryParam("numeroDocumento") String numeroDocumento);
+			@QueryParam("numeroDocumento") String numeroDocumento) throws RuntimeException;
 	
 	@GET
 	@Path("/verificar")

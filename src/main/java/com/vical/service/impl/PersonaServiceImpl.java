@@ -10,7 +10,7 @@ import com.vical.service.IPersonaService;
 public class PersonaServiceImpl implements IPersonaService {
 
 	@Override
-	public Persona obtenerDatosPersona(String tipoDOI) {
+	public Persona obtenerDatosPersona(String tipoDOI) throws RuntimeException {
 		Persona persona = null;
 		if(tipoDOI.equals("12345678")){
 			persona = new Persona();

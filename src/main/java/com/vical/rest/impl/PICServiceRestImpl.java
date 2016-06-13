@@ -16,12 +16,15 @@ public class PICServiceRestImpl implements IPICServiceRest {
 	private IPersonaService personaService;
 
 	@Override
-	public Persona obtenerDatosPersona(String tipoDocumento, String numeroDocumento) {
+	public Persona obtenerDatosPersona(String tipoDocumento, String numeroDocumento) throws RuntimeException {
 		return personaService.obtenerDatosPersona(tipoDocumento);
 	}
 	
 	@Override
 	public Response verifyRESTService() {
+		if(true){
+			throw new RuntimeException("Monitor not available");
+		}
 		String result = "Se tiene conexion al servicios rest de ejemplo";
 		return Response.status(200).entity(result).build();
 	}

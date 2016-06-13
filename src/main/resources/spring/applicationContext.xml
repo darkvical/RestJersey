@@ -18,6 +18,7 @@
 						http://www.springframework.org/schema/jee 
 						http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
 	">
+	
 	<context:component-scan base-package="com.vical.rest.impl" />
 <!-- 	<import resource = "applicationContext-Dao.xml"/> -->
 	<import resource = "applicationContext-Service.xml"/>
