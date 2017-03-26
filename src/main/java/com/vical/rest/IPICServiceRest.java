@@ -23,6 +23,6 @@ public interface IPICServiceRest {
 	@GET
 	@Path("/verificar")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response verifyRESTService();
+	public String verificarService(@QueryParam("argument") String argumento);
 	
 }

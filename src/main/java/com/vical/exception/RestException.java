@@ -1,5 +1,7 @@
 package com.vical.exception;
 
+import java.util.Locale;
+
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -11,23 +13,21 @@ public class RestException implements ExceptionMapper<Throwable> {
 
 	@Override
 	public Response toResponse(Throwable ex) {
-		int type = getStatusType(ex);
-
-		ErrorResponse error = new ErrorResponse(
-                0, null, ex.getLocalizedMessage());
-
-        return Response.status(error.getStatusCode())
-                .entity(error)
-                .type(MediaType.APPLICATION_JSON)
-                .build();
+		ErrorResponse errorMensaje = new ErrorResponse();
+		this.setHttpStatus(ex, errorMensaje);
+		errorMensaje.setStatusDescription("Error interno de la aplicación");
+		errorMensaje.setErrorMessage("Ocurrió algo inesperado");
+		errorMensaje.setSeverity("MEDIA");
+		return Response.status(errorMensaje.getStatusCode())
+                .entity(errorMensaje).language(new Locale("es", "PE")).type(MediaType.APPLICATION_JSON).build();
 	}
 	
-	 private int getStatusType(Throwable ex) {
-	        if (ex instanceof WebApplicationException) {
-	        	return ((WebApplicationException) ex).getResponse().getStatus();
-	        } else {
-	            return Response.Status.INTERNAL_SERVER_ERROR.getStatusCode();
-	        }
-	    }
+	private void setHttpStatus(Throwable ex, ErrorResponse errorResponse) {
+		if(ex instanceof WebApplicationException) {
+			errorResponse.setStatusCode(((WebApplicationException) ex).getResponse().getStatus());
+		} else {
+			errorResponse.setStatusCode(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode());
+		}
+	}
 
 }

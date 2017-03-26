@@ -1,9 +1,8 @@
 package com.vical.rest.impl;
 
-import javax.ws.rs.core.Response;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.vical.domain.Persona;
 import com.vical.rest.IPICServiceRest;
@@ -19,13 +18,13 @@ public class PICServiceRestImpl implements IPICServiceRest {
 	public Persona obtenerDatosPersona(String tipoDocumento, String numeroDocumento) throws RuntimeException {
 		return personaService.obtenerDatosPersona(tipoDocumento);
 	}
-	
+
 	@Override
-	public Response verifyRESTService() {
-		if(true){
-			throw new RuntimeException("Monitor not available");
+	public String verificarService(String argumento) {
+		if(StringUtils.isEmpty(argumento)) {
+			throw new RuntimeException();
+		} else {
+			return "Exito";
 		}
-		String result = "Se tiene conexion al servicios rest de ejemplo";
-		return Response.status(200).entity(result).build();
 	}
 }
