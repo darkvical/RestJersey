@@ -19,7 +19,16 @@
 						http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
 	">
 	
+	<bean p:location="classpath:app.properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean" id="appProperties"/>
+	<context:property-placeholder properties-ref="appProperties"/>
 	<context:component-scan base-package="com.vical.rest.impl" />
 <!-- 	<import resource = "applicationContext-Dao.xml"/> -->
 	<import resource = "applicationContext-Service.xml"/>
+	
+	<bean id="pusherWebsocket" class="com.pusher.rest.Pusher" >
+		<constructor-arg name = "appId" value="${pusher.app.id}"/>
+        <constructor-arg name = "key" value="${pusher.app.key}"/>
+        <constructor-arg name = "secret" value="${pusher.app.secret}"/>
+        <property name ="host" value = "${pusher.app.host}"/>
+	</bean>
 </beans>
